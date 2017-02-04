@@ -103,14 +103,9 @@ class MetroTempo extends React.Component {
 
 class MetroBeats extends React.Component {
   changeHandler(value) {
-    if(value == "helper") {
-      this.props.actions.setHelper(true);
-      this.props.actions.setBeats(null);
-    } else {
-      this.props.actions.setHelper(false);
-      this.props.actions.setBeats(value);
-    }
+    this.props.actions.setBeats(value);
   }
+
   render() {
     // log.debug("metroBeats:", this.props.value);
 
@@ -128,7 +123,7 @@ class MetroBeats extends React.Component {
         onClick={() => ::this.changeHandler(16)}
       > 16 </BS.Button>
       <BS.Button
-        bsStyle={this.props.value == null ? "danger" : "default"}
+        bsStyle={this.props.value == "helper" ? "danger" : "default"}
         onClick={() => ::this.changeHandler("helper")}
       >
         <img src="images/magic.png" width="18px" />
@@ -168,6 +163,34 @@ class SequencerSize extends React.Component {
   }
 }
 
+class SequencerMode extends React.Component {
+  changeHandler(value) {
+    this.props.actions.setSequencerMode(value);
+  }
+
+  render() {
+    return <BS.ButtonGroup>
+      <BS.Button
+        bsStyle={this.props.value == "reverse" ? "danger" : "default"}
+        onClick={() => ::this.changeHandler("reverse")}
+      >
+        <BS.Glyphicon glyph="arrow-left"/>
+      </BS.Button>
+      <BS.Button
+        bsStyle={this.props.value == "random" ? "danger" : "default"}
+        onClick={() => ::this.changeHandler("random")}
+      >
+        <BS.Glyphicon glyph="random"/>
+      </BS.Button>
+      <BS.Button
+        bsStyle={this.props.value == "direct" ? "danger" : "default"}
+        onClick={() => ::this.changeHandler("direct")}
+      >
+        <BS.Glyphicon glyph="arrow-right"/>
+      </BS.Button>
+    </BS.ButtonGroup>;
+  }
+}
 
 class Page extends React.Component {
   changeHandler() {
@@ -197,12 +220,6 @@ class Page extends React.Component {
         <span className="drumletters-selectors-checkbox-text"> {selector}</span>
       </div>
     );
-
-    let sequencerType = <BS.ButtonGroup>
-      <BS.Button><BS.Glyphicon glyph="arrow-left"/></BS.Button>
-      <BS.Button><BS.Glyphicon glyph="random"/></BS.Button>
-      <BS.Button><BS.Glyphicon glyph="arrow-right"/></BS.Button>
-    </BS.ButtonGroup>;
 
     return (
       <div className="drumletters-wrapper">
@@ -238,7 +255,7 @@ class Page extends React.Component {
             />
           </BS.Col>
           <BS.Col md={2} className="drumletters-sequencer">
-            {sequencerType}
+            <SequencerMode value={this.props.state.sequencerMode} actions={this.props.actions} />
           </BS.Col>
         </BS.Row>
       </div>

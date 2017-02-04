@@ -11,13 +11,6 @@ export function setTempo(tempo) {
   }
 }
 
-export function setHelper(value) {
-  return {
-    type: actionsType.SET_HELPER,
-    payload: value
-  }
-}
-
 export function setBeats(value) {
   return {
     type: actionsType.SET_BEATS,
@@ -28,6 +21,13 @@ export function setBeats(value) {
 export function setSequencerSize(value) {
   return {
     type: actionsType.SET_SEQUENCER_SIZE,
+    payload: value
+  }
+}
+
+export function setSequencerMode(value) {
+  return {
+    type: actionsType.SET_SEQUENCER_MODE,
     payload: value
   }
 }

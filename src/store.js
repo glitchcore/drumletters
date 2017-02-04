@@ -22,8 +22,7 @@ for(let i = 0; i < QueueSize; i++) {
 
 const initialState = {
   tempo: 96,
-  beats: 4, // 4, 8, 16
-  helper: false,
+  beats: 4, // 4, 8, 16, "helper"
   isPlaying: false,
   sequencerSize: 4, // 1..9
   sequencerMode: "direct", // direct, reverse, random
@@ -44,12 +43,6 @@ function rootReducer(state = initialState, action) {
         tempo: action.payload
       };
 
-    case actionsType.SET_HELPER:
-      log.info("new helper:", action.payload);
-      return {...state,
-        helper: action.payload
-      };
-
     case actionsType.SET_BEATS:
       log.info("new beats:", action.payload);
       return {...state,
@@ -60,6 +53,12 @@ function rootReducer(state = initialState, action) {
       log.info("new size:", action.payload);
       return {...state,
         sequencerSize: action.payload
+      };
+
+    case actionsType.SET_SEQUENCER_MODE:
+      log.info("new mode:", action.payload);
+      return {...state,
+        sequencerMode: action.payload
       };
 
     default:
