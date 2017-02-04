@@ -19,33 +19,6 @@ log.setLevel(Logger.DEBUG);
 
 const ColSize = 12;
 
-class Tap extends React.Component {
-  render() {
-    let icon = this.props.value
-      ? "\u25CF"
-      : "\u25CB";
-    let suffix = (this.props.active ? "active" : "inactive");
-
-    return <div className={"drumletters-tap drumletters-bigletter-"+suffix}> {icon} </div>
-  }
-}
-
-class Letter extends React.Component {
-  render() {
-    let taps = [true,true,false,true];
-    let tapsElements = taps.map(
-      (tap, idx) => <BS.Col key={idx} md={Math.floor(ColSize/taps.length)}>
-        <Tap value={tap} active={this.props.active}/>
-      </BS.Col>
-    );
-    let suffix = (this.props.active ? "active" : "inactive");
-    return <div className="drumletters-letter-container">
-      <BS.Row className={"drumletters-bigletter drumletters-bigletter-" + suffix}> {this.props.value} </BS.Row>
-      <BS.Row className={"drumletters-taps"}>{tapsElements}</BS.Row>
-    </div>;
-  }
-}
-
 class MetroTempo extends React.Component {
   commitChange() {
     let value = parseInt(findDOMNode(this.refs.tempo).value);
@@ -203,7 +176,7 @@ class Selectors extends React.Component {
 
   render() {
     let selectors = [];
-    //log.debug("LetterSize", Store.LetterSize);
+    // log.debug("LetterSize", Store.LetterSize);
     for(let i = 0; i < Store.LetterSize; i++) {
       selectors.push(String.fromCharCode(i + "A".charCodeAt()));
     }
@@ -223,19 +196,56 @@ class Selectors extends React.Component {
     return <div>{selectorElements}</div>;
   }
 }
-class Page extends React.Component {
-  changeHandler() {
-    log.debug("changeHandler");
-  }
 
+
+class Tap extends React.Component {
   render() {
-    let letters = ["A","B","C","D"];
+    let icon = this.props.value
+      ? "\u25CF"
+      : "\u25CB";
+    let suffix = (this.props.active ? "active" : "inactive");
+
+    return <div className={"drumletters-tap drumletters-bigletter-"+suffix}> {icon} </div>
+  }
+}
+
+class Letter extends React.Component {
+  render() {
+    let taps = this.props.value.taps;
+    let tapsElements = taps.map(
+      (tap, idx) => <BS.Col key={idx} md={Math.floor(ColSize/taps.length)}>
+        <Tap value={tap} active={this.props.active}/>
+      </BS.Col>
+    );
+    let suffix = (this.props.active ? "active" : "inactive");
+    return <div className="drumletters-letter-container">
+      <BS.Row className={"drumletters-bigletter drumletters-bigletter-" + suffix}>
+        {this.props.value.letter}
+      </BS.Row>
+      <BS.Row className={"drumletters-taps"}>{tapsElements}</BS.Row>
+    </div>;
+  }
+}
+class LettersQueue extends React.Component {
+  render() {
+    let letters = this.props.letters;
     let lettersElements = letters.map(
       (letter, idx) => <BS.Col key={idx} md={Math.floor(ColSize/letters.length)}>
         <Letter value={letter} active={idx == 1}/>
       </BS.Col>
     );
 
+    return <div>{lettersElements}</div>
+  }
+
+}
+
+class Page extends React.Component {
+  changeHandler() {
+    log.debug("changeHandler");
+  }
+
+  render() {
     return (
       <div className="drumletters-wrapper">
         <div className="drumletters-title">
@@ -244,7 +254,9 @@ class Page extends React.Component {
         <BS.Row className="drumletters-main">
           <BS.Col md={11} className="drumletters-letters-container">
             <div className="drumletters-letters">
-              {lettersElements}
+              <LettersQueue
+                letters={this.props.state.lettersQueue.map(letter => Store.Letters[letter])}
+              />
             </div>
           </BS.Col>
           <BS.Col md={1} className="drumletters-selectors-container">

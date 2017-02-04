@@ -8,7 +8,22 @@ var log = Log.get("store");
 log.setLevel(Logger.DEBUG);
 
 export const Letters = [
-  {letter:"A", beats: [true, false, false, false]}
+  {letter:"A", taps: [true, false, false, false]},
+  {letter:"B", taps: [false, true, false, false]},
+  {letter:"C", taps: [false, false, true, false]},
+  {letter:"D", taps: [false, false, false, true]},
+  {letter:"E", taps: [true, true, false, false]},
+  {letter:"F", taps: [false, true, true, false]},
+  {letter:"G", taps: [false, false, true, true]},
+  {letter:"H", taps: [true, false, false, true]},
+  {letter:"I", taps: [true, false, true, false]},
+  {letter:"J", taps: [false, true, false, true]},
+  {letter:"K", taps: [true, true, true, false]},
+  {letter:"L", taps: [false, true, true, true]},
+  {letter:"M", taps: [true, false, true, true]},
+  {letter:"N", taps: [true, true, false, true]},
+  {letter:"O", taps: [true, true, true, true]},
+  {letter:"P", taps: [false, false, false, false]}
 ];
 
 export const LetterSize = 16;
@@ -21,7 +36,7 @@ for(let i = 0; i < 4; i++) {
 
 var initQueue = [];
 for(let i = 0; i < QueueSize; i++) {
-  initQueue.push(0);
+  initQueue.push(i);
 }
 
 const initialState = {
