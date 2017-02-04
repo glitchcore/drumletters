@@ -103,3 +103,11 @@ body {
   top: 50%;
   transform: translateY(-50%);
 }
+
+
+.drumletters-play {
+  font-size: 50pt;
+  margin-top: -19pt;
+  text-align: center;
+  color: #F63E62;
+}

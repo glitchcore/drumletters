@@ -55,7 +55,7 @@ class Page extends React.Component {
     }
 
     let selectorElements = selectors.map(
-      (selector,idx) => <div className="drumletters-selector-checkbox">
+      (selector,idx) => <div key={idx} className="drumletters-selector-checkbox">
         <Checkbox
         checkboxClass="icheckbox_flat-blue"
         increaseArea="20%"
@@ -65,10 +65,38 @@ class Page extends React.Component {
       </div>
     );
 
-    let metro = <div>Метроном</div>;
+    let metroTempo = <div>
+      <BS.Col md={2} className="">
+        <BS.FormGroup>
+          <BS.InputGroup>
+            <BS.InputGroup.Button>
+              <BS.Button><BS.Glyphicon glyph="arrow-left"/></BS.Button>
+            </BS.InputGroup.Button>
+            <BS.FormControl type="text" defaultValue="120"/>
+            <BS.InputGroup.Button> 
+              <BS.Button><BS.Glyphicon glyph="ok"/></BS.Button>
+            </BS.InputGroup.Button>
+            <BS.InputGroup.Button>
+              <BS.Button><BS.Glyphicon glyph="arrow-right"/></BS.Button>
+            </BS.InputGroup.Button>
+          </BS.InputGroup>
+        </BS.FormGroup>
+      </BS.Col>
+    </div>;
+
+    let metroBeats = <div>
+      <BS.Col md={2} className="">
+        <BS.ButtonGroup>
+          <BS.Button> 4</BS.Button>
+          <BS.Button> 8</BS.Button>
+          <BS.Button>16</BS.Button>
+          <BS.Button><img src="images/magic.png" width="18px" /></BS.Button>
+        </BS.ButtonGroup>
+      </BS.Col>
+    </div>;
 
     let sequencer = <div>Секвенсер</div>;
-    
+
     return (
       <div className="drumletters-wrapper">
         <div className="drumletters-title">
@@ -85,10 +113,13 @@ class Page extends React.Component {
           </BS.Col>
         </BS.Row>
         <BS.Row className="drumletters-footer">
-          <BS.Col md={7} className="drumletters-metro">
-            {metro}
+          {metroTempo}{metroBeats}
+          <BS.Col md={4} className="drumletters-metro">
+            <div className="drumletters-play">
+              <BS.Glyphicon glyph="play-circle"/>
+            </div>
           </BS.Col>
-          <BS.Col md={5} className="drumletters-sequencer">
+          <BS.Col md={4} className="drumletters-sequencer">
             {sequencer}
           </BS.Col>
         </BS.Row>
