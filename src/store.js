@@ -7,17 +7,21 @@ import Logger from 'js-logger';
 var log = Log.get("store");
 log.setLevel(Logger.DEBUG);
 
-const LetterSize = 16;
+export const Letters = [
+  {letter:"A", beats: [true, false, false, false]}
+];
+
+export const LetterSize = 16;
 const QueueSize = 4;
 
 var initLetters = [];
-for(let i = 0; i < LetterSize; i++) {
+for(let i = 0; i < 4; i++) {
   initLetters.push(i);
 }
 
 var initQueue = [];
 for(let i = 0; i < QueueSize; i++) {
-  initQueue.push(2);
+  initQueue.push(0);
 }
 
 const initialState = {
@@ -61,12 +65,34 @@ function rootReducer(state = initialState, action) {
         sequencerMode: action.payload
       };
 
+    case actionsType.SELECT_LETTER:
+      log.info("letter:", action.payload);
+      let value = action.payload.value;
+      let idx = action.payload.idx;
+
+      let _selectedLetters = state.selectedLetters.slice();
+
+      if(value) {
+        _selectedLetters.push(idx);
+      } else {
+        let idxOfIdx = _selectedLetters.indexOf(idx);
+        if(idxOfIdx > -1) {
+          _selectedLetters.splice(idxOfIdx, 1);
+        }
+      }
+
+      log.info("new letters:", _selectedLetters);
+
+      return {...state,
+        selectedLetters: _selectedLetters
+      };
+      
     default:
       return state;
   }
 }
 
-export default function configureStore(initialState) {
+export function configureStore(initialState) {
   log.info("configureStore");
   const store = createStore(
     rootReducer,

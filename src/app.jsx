@@ -192,6 +192,37 @@ class SequencerMode extends React.Component {
   }
 }
 
+import * as Store from './store';
+
+class Selectors extends React.Component {
+  clickHandler(idx, event) {
+    let value = event.target.checked;
+    log.debug(idx, "checkbox", value);
+    this.props.actions.selectLetter(idx, value);
+  }
+
+  render() {
+    let selectors = [];
+    //log.debug("LetterSize", Store.LetterSize);
+    for(let i = 0; i < Store.LetterSize; i++) {
+      selectors.push(String.fromCharCode(i + "A".charCodeAt()));
+    }
+
+    let selectorElements = selectors.map(
+      (selector,idx) => <div key={idx} className="drumletters-selector-checkbox">
+        <Checkbox
+          checkboxClass="icheckbox_flat-blue"
+          increaseArea="20%"
+          defaultChecked={this.props.letters.indexOf(idx) > -1}
+          onChange={(event) => ::this.clickHandler(idx, event)}
+        />
+        <span className="drumletters-selectors-checkbox-text"> {selector}</span>
+      </div>
+    );
+
+    return <div>{selectorElements}</div>;
+  }
+}
 class Page extends React.Component {
   changeHandler() {
     log.debug("changeHandler");
@@ -203,22 +234,6 @@ class Page extends React.Component {
       (letter, idx) => <BS.Col key={idx} md={Math.floor(ColSize/letters.length)}>
         <Letter value={letter} active={idx == 1}/>
       </BS.Col>
-    );
-
-    let selectors = [];
-    for(let i = 65; i <= 80; i++) {
-      selectors.push(String.fromCharCode(i));
-    }
-
-    let selectorElements = selectors.map(
-      (selector,idx) => <div key={idx} className="drumletters-selector-checkbox">
-        <Checkbox
-        checkboxClass="icheckbox_flat-blue"
-        increaseArea="20%"
-        defaultChecked={true}
-        />
-        <span className="drumletters-selectors-checkbox-text"> {selector}</span>
-      </div>
     );
 
     return (
@@ -233,7 +248,7 @@ class Page extends React.Component {
             </div>
           </BS.Col>
           <BS.Col md={1} className="drumletters-selectors-container">
-            {selectorElements}
+            <Selectors actions={this.props.actions} letters={this.props.state.selectedLetters}/>
           </BS.Col>
         </BS.Row>
         <BS.Row className="drumletters-footer">
@@ -255,7 +270,7 @@ class Page extends React.Component {
             />
           </BS.Col>
           <BS.Col md={2} className="drumletters-sequencer">
-            <SequencerMode value={this.props.state.sequencerMode} actions={this.props.actions} />
+            <SequencerMode value={this.props.state.sequencerMode} actions={this.props.actions}/>
           </BS.Col>
         </BS.Row>
       </div>
@@ -263,7 +278,7 @@ class Page extends React.Component {
   }
 }
 
-const store = configureStore();
+const store = Store.configureStore();
 
 function state2Page (state) {
   return {

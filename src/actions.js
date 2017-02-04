@@ -31,3 +31,10 @@ export function setSequencerMode(value) {
     payload: value
   }
 }
+
+export function selectLetter(idx, value) {
+  return {
+    type: actionsType.SELECT_LETTER,
+    payload: {idx, value}
+  }
+}
