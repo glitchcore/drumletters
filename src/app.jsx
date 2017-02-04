@@ -9,11 +9,13 @@ import * as actionsType from "./actions_type";
 import configureStore from './store';
 import * as BS from 'react-bootstrap';
 
+const ColSize = 12;
+
 class Tap extends React.Component {
   render() {
     let icon = this.props.value
-      ? <BS.Glyphicon glyph="star"/>
-      : <BS.Glyphicon glyph="star-empty"/>;
+      ? "\u25CF"
+      : "\u25CB";
     let suffix = (this.props.active ? "active" : "inactive");
 
     return <div className={"drumletters-tap drumletters-bigletter-"+suffix}> {icon} </div>
@@ -36,7 +38,6 @@ class Letter extends React.Component {
   }
 }
 
-const ColSize = 12;
 
 class Page extends React.Component {
   render() {
@@ -53,8 +54,10 @@ class Page extends React.Component {
           Benny Greb letters for drummers
         </div>
         <BS.Row className="drumletters-main">
-          <BS.Col md={10} className="drumletters-letters">
-            {lettersElements}
+          <BS.Col md={10} className="drumletters-letters-container">
+            <div className="drumletters-letters">
+              {lettersElements}
+            </div>
           </BS.Col>
           <BS.Col md={2} className="drumletters-selectors">
             Чекбоксы

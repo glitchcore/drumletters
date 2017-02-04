@@ -55,8 +55,13 @@ body {
   width: 100%;
 }
 
+.drumletters-letters-container {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .drumletters-letters {
-  padding-top: 8%;
+  position: relative;
 }
 
 .drumletters-container {
@@ -79,7 +84,7 @@ body {
 
 .drumletters-taps {
   width: 100%;
-  margin-top: -70px;
+  margin-top: -90px;
   text-align: center;
 }
 .drumletters-taps div {
@@ -87,5 +92,5 @@ body {
 }
 
 .drumletters-tap {
-  font-size: 30pt;
+  font-size: 50pt;
 }
