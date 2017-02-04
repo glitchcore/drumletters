@@ -8,6 +8,7 @@ import * as actions from './actions';
 import * as actionsType from "./actions_type";
 import configureStore from './store';
 import * as BS from 'react-bootstrap';
+import {Checkbox} from 'react-icheck';
 
 const ColSize = 12;
 
@@ -48,6 +49,21 @@ class Page extends React.Component {
       </BS.Col>
     );
 
+    let selectors = [];
+    for(let i = 65; i <= 80; i++) {
+      selectors.push(String.fromCharCode(i));
+    }
+
+    let selectorElements = selectors.map(
+      (selector,idx) => <div className="drumletters-selector-checkbox">
+        <Checkbox
+        checkboxClass="icheckbox_flat-blue"
+        increaseArea="20%"
+        />
+        <span className="drumletters-selectors-checkbox-text"> {selector}</span>
+      </div>
+    );
+
     return (
       <div className="drumletters-wrapper">
         <div className="drumletters-title">
@@ -60,7 +76,7 @@ class Page extends React.Component {
             </div>
           </BS.Col>
           <BS.Col md={2} className="drumletters-selectors">
-            Чекбоксы
+            {selectorElements}
           </BS.Col>
         </BS.Row>
         <BS.Row className="drumletters-footer">

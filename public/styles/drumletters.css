@@ -94,3 +94,11 @@ body {
 .drumletters-tap {
   font-size: 50pt;
 }
+.drumletters-selector-checkbox {
+  margin-top: 4px;
+}
+.drumletters-selectors-checkbox-text {
+  color: #FFE700;
+  font-weight: bold;
+}
+
