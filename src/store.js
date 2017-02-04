@@ -56,6 +56,12 @@ function rootReducer(state = initialState, action) {
         beats: action.payload
       };
 
+    case actionsType.SET_SEQUENCER_SIZE:
+      log.info("new size:", action.payload);
+      return {...state,
+        sequencerSize: action.payload
+      };
+
     default:
       return state;
   }

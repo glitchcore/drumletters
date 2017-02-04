@@ -59,14 +59,14 @@ class MetroTempo extends React.Component {
     }
   }
 
-  increaseTempo(event) {
+  increaseTempo() {
     let value = this.props.value;
     if(this.props.value < 250) {
       this.props.onChange(value + 5);
     }
   }
 
-  decreaseTempo(event) {
+  decreaseTempo() {
     let value = this.props.value;
     if(value > 30) {
       this.props.onChange(value - 5);
@@ -112,7 +112,7 @@ class MetroBeats extends React.Component {
     }
   }
   render() {
-    log.debug("metroBeats:", this.props.value);
+    // log.debug("metroBeats:", this.props.value);
 
     return <BS.ButtonGroup>
       <BS.Button
@@ -134,6 +134,37 @@ class MetroBeats extends React.Component {
         <img src="images/magic.png" width="18px" />
       </BS.Button>
     </BS.ButtonGroup>;
+  }
+}
+
+class SequencerSize extends React.Component {
+
+  increaseTempo() {
+    let value = this.props.value;
+    if(this.props.value < 9) {
+      this.props.onChange(value + 1);
+    }
+  }
+
+  decreaseTempo() {
+    let value = this.props.value;
+    if(value > 1) {
+      this.props.onChange(value - 1);
+    }
+  }
+
+  render() {
+    return <BS.FormGroup>
+      <BS.InputGroup>
+        <BS.InputGroup.Button>
+          <BS.Button onClick={::this.decreaseTempo}><BS.Glyphicon glyph="chevron-left"/></BS.Button>
+        </BS.InputGroup.Button>
+        <BS.FormControl type="text" value={this.props.value}/>
+        <BS.InputGroup.Button>
+          <BS.Button onClick={::this.increaseTempo}><BS.Glyphicon glyph="chevron-right"/></BS.Button>
+        </BS.InputGroup.Button>
+      </BS.InputGroup>
+    </BS.FormGroup>;
   }
 }
 
@@ -166,21 +197,6 @@ class Page extends React.Component {
         <span className="drumletters-selectors-checkbox-text"> {selector}</span>
       </div>
     );
-
-
-    let sequencer = <div>Секвенсер</div>;
-
-    let sequencerSize = <BS.FormGroup>
-      <BS.InputGroup>
-        <BS.InputGroup.Button>
-          <BS.Button><BS.Glyphicon glyph="chevron-left"/></BS.Button>
-        </BS.InputGroup.Button>
-        <BS.FormControl type="text" defaultValue="2"/>
-        <BS.InputGroup.Button>
-          <BS.Button><BS.Glyphicon glyph="chevron-right"/></BS.Button>
-        </BS.InputGroup.Button>
-      </BS.InputGroup>
-    </BS.FormGroup>;
 
     let sequencerType = <BS.ButtonGroup>
       <BS.Button><BS.Glyphicon glyph="arrow-left"/></BS.Button>
@@ -216,7 +232,10 @@ class Page extends React.Component {
             </div>
           </BS.Col>
           <BS.Col mdOffset={1} md={2} className="drumletters-sequencer-size">
-            {sequencerSize}
+            <SequencerSize
+              onChange={this.props.actions.setSequencerSize}
+              value={this.props.state.sequencerSize}
+            />
           </BS.Col>
           <BS.Col md={2} className="drumletters-sequencer">
             {sequencerType}

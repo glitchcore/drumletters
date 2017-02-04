@@ -24,3 +24,10 @@ export function setBeats(value) {
     payload: value
   }
 }
+
+export function setSequencerSize(value) {
+  return {
+    type: actionsType.SET_SEQUENCER_SIZE,
+    payload: value
+  }
+}
