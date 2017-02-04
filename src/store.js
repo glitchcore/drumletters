@@ -34,9 +34,16 @@ const initialState = {
 function rootReducer(state = initialState, action) {
   switch (action.type) {
     case actionsType.TEST:
-      console.log("[rx] test", action.payload);
+      log.info("[rx] test", action.payload);
       return {...state
       };
+
+    case actionsType.SET_TEMPO:
+      log.info("new tempo:", action.payload);
+      return {...state,
+        tempo: action.payload
+      };
+
 
     default:
       return state;
