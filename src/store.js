@@ -44,6 +44,17 @@ function rootReducer(state = initialState, action) {
         tempo: action.payload
       };
 
+    case actionsType.SET_HELPER:
+      log.info("new helper:", action.payload);
+      return {...state,
+        helper: action.payload
+      };
+
+    case actionsType.SET_BEATS:
+      log.info("new beats:", action.payload);
+      return {...state,
+        beats: action.payload
+      };
 
     default:
       return state;

@@ -10,3 +10,17 @@ export function setTempo(tempo) {
     payload: tempo
   }
 }
+
+export function setHelper(value) {
+  return {
+    type: actionsType.SET_HELPER,
+    payload: value
+  }
+}
+
+export function setBeats(value) {
+  return {
+    type: actionsType.SET_BEATS,
+    payload: value
+  }
+}

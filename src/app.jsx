@@ -101,6 +101,42 @@ class MetroTempo extends React.Component {
   }
 }
 
+class MetroBeats extends React.Component {
+  changeHandler(value) {
+    if(value == "helper") {
+      this.props.actions.setHelper(true);
+      this.props.actions.setBeats(null);
+    } else {
+      this.props.actions.setHelper(false);
+      this.props.actions.setBeats(value);
+    }
+  }
+  render() {
+    log.debug("metroBeats:", this.props.value);
+
+    return <BS.ButtonGroup>
+      <BS.Button
+        bsStyle={this.props.value == 4 ? "danger" : "default"}
+        onClick={() => ::this.changeHandler(4)}
+      > 4 </BS.Button>
+      <BS.Button
+        bsStyle={this.props.value == 8 ? "danger" : "default"}
+        onClick={() => ::this.changeHandler(8)}
+      > 8 </BS.Button>
+      <BS.Button
+        bsStyle={this.props.value == 16 ? "danger" : "default"}
+        onClick={() => ::this.changeHandler(16)}
+      > 16 </BS.Button>
+      <BS.Button
+        bsStyle={this.props.value == null ? "danger" : "default"}
+        onClick={() => ::this.changeHandler("helper")}
+      >
+        <img src="images/magic.png" width="18px" />
+      </BS.Button>
+    </BS.ButtonGroup>;
+  }
+}
+
 
 class Page extends React.Component {
   changeHandler() {
@@ -130,13 +166,6 @@ class Page extends React.Component {
         <span className="drumletters-selectors-checkbox-text"> {selector}</span>
       </div>
     );
-
-    let metroBeats = <BS.ButtonGroup>
-      <BS.Button> 4</BS.Button>
-      <BS.Button> 8</BS.Button>
-      <BS.Button>16</BS.Button>
-      <BS.Button><img src="images/magic.png" width="18px" /></BS.Button>
-    </BS.ButtonGroup>;
 
 
     let sequencer = <div>Секвенсер</div>;
@@ -179,7 +208,7 @@ class Page extends React.Component {
             <MetroTempo value={this.props.state.tempo} onChange={this.props.actions.setTempo}/>
           </BS.Col>
           <BS.Col md={2} className="">
-            {metroBeats}
+            <MetroBeats value={this.props.state.beats} actions={this.props.actions}/>
           </BS.Col>
           <BS.Col md={2} className="drumletters-metro">
             <div className="drumletters-play">

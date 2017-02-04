@@ -121,6 +121,11 @@ body {
   background-color: #9A001E;
   border: 1px solid #4575d4;
 }
+.drumletters-footer .btn-danger {
+  color: #fff;
+  background-color: #F66F89;
+  border: 1px solid #4575d4;
+}
 
 .drumletters-footer .form-control {
   color: #fff;
