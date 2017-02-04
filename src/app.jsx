@@ -65,37 +65,51 @@ class Page extends React.Component {
       </div>
     );
 
-    let metroTempo = <div>
-      <BS.Col md={2} className="">
-        <BS.FormGroup>
-          <BS.InputGroup>
-            <BS.InputGroup.Button>
-              <BS.Button><BS.Glyphicon glyph="arrow-left"/></BS.Button>
-            </BS.InputGroup.Button>
-            <BS.FormControl type="text" defaultValue="120"/>
-            <BS.InputGroup.Button> 
-              <BS.Button><BS.Glyphicon glyph="ok"/></BS.Button>
-            </BS.InputGroup.Button>
-            <BS.InputGroup.Button>
-              <BS.Button><BS.Glyphicon glyph="arrow-right"/></BS.Button>
-            </BS.InputGroup.Button>
-          </BS.InputGroup>
-        </BS.FormGroup>
-      </BS.Col>
+    let metroTempo = <div  className="drumletters-footer-panel">
+      <BS.FormGroup>
+        <BS.InputGroup>
+          <BS.InputGroup.Button>
+            <BS.Button><BS.Glyphicon glyph="chevron-left"/></BS.Button>
+          </BS.InputGroup.Button>
+          <BS.FormControl type="text" defaultValue="120"/>
+          <BS.InputGroup.Button> 
+            <BS.Button><BS.Glyphicon glyph="ok"/></BS.Button>
+          </BS.InputGroup.Button>
+          <BS.InputGroup.Button>
+            <BS.Button><BS.Glyphicon glyph="chevron-right"/></BS.Button>
+          </BS.InputGroup.Button>
+        </BS.InputGroup>
+      </BS.FormGroup>
     </div>;
 
-    let metroBeats = <div>
-      <BS.Col md={2} className="">
-        <BS.ButtonGroup>
-          <BS.Button> 4</BS.Button>
-          <BS.Button> 8</BS.Button>
-          <BS.Button>16</BS.Button>
-          <BS.Button><img src="images/magic.png" width="18px" /></BS.Button>
-        </BS.ButtonGroup>
-      </BS.Col>
-    </div>;
+    let metroBeats = <BS.ButtonGroup>
+      <BS.Button> 4</BS.Button>
+      <BS.Button> 8</BS.Button>
+      <BS.Button>16</BS.Button>
+      <BS.Button><img src="images/magic.png" width="18px" /></BS.Button>
+    </BS.ButtonGroup>;
+
 
     let sequencer = <div>Секвенсер</div>;
+
+    let sequencerSize = <BS.FormGroup>
+      <BS.InputGroup>
+        <BS.InputGroup.Button>
+          <BS.Button><BS.Glyphicon glyph="chevron-left"/></BS.Button>
+        </BS.InputGroup.Button>
+        <BS.FormControl type="text" defaultValue="2"/>
+        <BS.InputGroup.Button>
+          <BS.Button><BS.Glyphicon glyph="chevron-right"/></BS.Button>
+        </BS.InputGroup.Button>
+      </BS.InputGroup>
+    </BS.FormGroup>;
+
+    let sequencerType = <BS.ButtonGroup>
+      <BS.Button><BS.Glyphicon glyph="arrow-left"/></BS.Button>
+      <BS.Button><BS.Glyphicon glyph="random"/></BS.Button>
+      <BS.Button><BS.Glyphicon glyph="arrow-right"/></BS.Button>
+    </BS.ButtonGroup>;
+
 
     return (
       <div className="drumletters-wrapper">
@@ -113,14 +127,22 @@ class Page extends React.Component {
           </BS.Col>
         </BS.Row>
         <BS.Row className="drumletters-footer">
-          {metroTempo}{metroBeats}
-          <BS.Col md={4} className="drumletters-metro">
+          <BS.Col mdOffset={1} md={2} className="">
+            {metroTempo}
+          </BS.Col>
+          <BS.Col md={2} className="">
+            {metroBeats}
+          </BS.Col>
+          <BS.Col md={2} className="drumletters-metro">
             <div className="drumletters-play">
               <BS.Glyphicon glyph="play-circle"/>
             </div>
           </BS.Col>
-          <BS.Col md={4} className="drumletters-sequencer">
-            {sequencer}
+          <BS.Col mdOffset={1} md={2} className="drumletters-sequencer-size">
+            {sequencerSize}
+          </BS.Col>
+          <BS.Col md={2} className="drumletters-sequencer">
+            {sequencerType}
           </BS.Col>
         </BS.Row>
       </div>

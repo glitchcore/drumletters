@@ -7,8 +7,28 @@ import Logger from 'js-logger';
 var log = Log.get("store");
 log.setLevel(Logger.DEBUG);
 
-const initialState = {
+const LetterSize = 16;
+const QueueSize = 4;
 
+var initLetters = [];
+for(let i = 0; i < LetterSize; i++) {
+  initLetters.push(i);
+}
+
+var initQueue = [];
+for(let i = 0; i < QueueSize; i++) {
+  initQueue.push(2);
+}
+
+const initialState = {
+  tempo: 96,
+  beats: 4, // 4, 8, 16
+  helper: false,
+  isPlaying: false,
+  sequencerSize: 4, // 1..9
+  sequencerMode: "direct", // direct, reverse, random
+  selectedLetters: initLetters,
+  lettersQueue: initQueue
 };
 
 function rootReducer(state = initialState, action) {

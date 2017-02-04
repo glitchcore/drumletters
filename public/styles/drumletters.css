@@ -111,3 +111,20 @@ body {
   text-align: center;
   color: #F63E62;
 }
+
+.drumletters-sequencer-size {
+  width: 12%;
+}
+
+.drumletters-footer .btn-default {
+  color: #fff;
+  background-color: #9A001E;
+  border: 1px solid #4575d4;
+}
+
+.drumletters-footer .form-control {
+  color: #fff;
+  background-color: #9A001E;
+  border: 1px solid #4575d4;
+}
+
