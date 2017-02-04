@@ -21,7 +21,7 @@ html,
 body {
   height: 100%;
   width: 100%;
-  background-color: #06799F;
+  background-color: #4575D4;
 }
 
 #app {
@@ -34,19 +34,58 @@ body {
   width: 100%;
 }
 .drumletters-title {
-  font-size: 20px;
+  height: 5%;
+  font-size: 13pt;
   text-align: center;
-  color: #C7F66F;
+  color: #9A001E;
 }
-.drumletters-main {
-  height: 90%;
+
+.drumletters-footer {
+  height: 10%;
   width: 100%;
 }
+
 .drumletters-selector {
   height: 90%;
   width: 100%;
 }
+
 .drumletters-main {
-  height: 90%;
+  height: 85%;
   width: 100%;
+}
+
+.drumletters-letters {
+  padding-top: 8%;
+}
+
+.drumletters-container {
+  width: 100%;
+  
+}
+
+.drumletters-bigletter {
+  font-weight: bold;
+  font-size: 190pt;
+  text-align: center;
+}
+
+.drumletters-bigletter-active {
+  color: #75EE3B;
+}
+.drumletters-bigletter-inactive {
+  color: #6B8FD4;
+}
+
+.drumletters-taps {
+  width: 100%;
+  margin-top: -70px;
+  text-align: center;
+}
+.drumletters-taps div {
+  display: inline-block;
+}
+
+.drumletters-tap {
+  font-size: 30pt;
 }

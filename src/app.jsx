@@ -9,8 +9,44 @@ import * as actionsType from "./actions_type";
 import configureStore from './store';
 import * as BS from 'react-bootstrap';
 
+class Tap extends React.Component {
+  render() {
+    let icon = this.props.value
+      ? <BS.Glyphicon glyph="star"/>
+      : <BS.Glyphicon glyph="star-empty"/>;
+    let suffix = (this.props.active ? "active" : "inactive");
+
+    return <div className={"drumletters-tap drumletters-bigletter-"+suffix}> {icon} </div>
+  }
+}
+
+class Letter extends React.Component {
+  render() {
+    let taps = [true,true,false,true];
+    let tapsElements = taps.map(
+      (tap, idx) => <BS.Col key={idx} md={Math.floor(ColSize/taps.length)}>
+        <Tap value={tap} active={this.props.active}/>
+      </BS.Col>
+    );
+    let suffix = (this.props.active ? "active" : "inactive");
+    return <div className="drumletters-container">
+      <BS.Row className={"drumletters-bigletter drumletters-bigletter-" + suffix}> {this.props.value} </BS.Row>
+      <BS.Row className={"drumletters-taps"}>{tapsElements}</BS.Row>
+    </div>;
+  }
+}
+
+const ColSize = 12;
+
 class Page extends React.Component {
   render() {
+    let letters = ["A","B","C","D"];
+    let lettersElements = letters.map(
+      (letter, idx) => <BS.Col key={idx} md={Math.floor(ColSize/letters.length)}>
+        <Letter value={letter} active={idx == 1}/>
+      </BS.Col>
+    );
+
     return (
       <div className="drumletters-wrapper">
         <div className="drumletters-title">
@@ -18,7 +54,7 @@ class Page extends React.Component {
         </div>
         <BS.Row className="drumletters-main">
           <BS.Col md={10} className="drumletters-letters">
-            Буквы
+            {lettersElements}
           </BS.Col>
           <BS.Col md={2} className="drumletters-selectors">
             Чекбоксы
