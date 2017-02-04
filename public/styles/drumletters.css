@@ -34,12 +34,12 @@ body {
   width: 100%;
 }
 .drumletters-title {
+  padding-top: 10px;
   height: 5%;
   font-size: 13pt;
   text-align: center;
-  color: #9A001E;
+  color: #FFED40 ;
 }
-
 .drumletters-footer {
   height: 10%;
   width: 100%;
@@ -59,22 +59,18 @@ body {
   top: 50%;
   transform: translateY(-50%);
 }
-
 .drumletters-letters {
   position: relative;
 }
 
-.drumletters-container {
-  width: 100%;
-  
+.drumletters-letter-container {
+  width: 100%;  
 }
-
 .drumletters-bigletter {
   font-weight: bold;
   font-size: 190pt;
   text-align: center;
 }
-
 .drumletters-bigletter-active {
   color: #75EE3B;
 }
@@ -96,9 +92,14 @@ body {
 }
 .drumletters-selector-checkbox {
   margin-top: 4px;
+  position: relative;
 }
 .drumletters-selectors-checkbox-text {
   color: #FFE700;
   font-weight: bold;
 }
 
+.drumletters-selectors-container {
+  top: 50%;
+  transform: translateY(-50%);
+}

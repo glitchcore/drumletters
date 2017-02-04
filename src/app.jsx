@@ -32,7 +32,7 @@ class Letter extends React.Component {
       </BS.Col>
     );
     let suffix = (this.props.active ? "active" : "inactive");
-    return <div className="drumletters-container">
+    return <div className="drumletters-letter-container">
       <BS.Row className={"drumletters-bigletter drumletters-bigletter-" + suffix}> {this.props.value} </BS.Row>
       <BS.Row className={"drumletters-taps"}>{tapsElements}</BS.Row>
     </div>;
@@ -59,32 +59,37 @@ class Page extends React.Component {
         <Checkbox
         checkboxClass="icheckbox_flat-blue"
         increaseArea="20%"
+        defaultChecked={true}
         />
         <span className="drumletters-selectors-checkbox-text"> {selector}</span>
       </div>
     );
 
+    let metro = <div>Метроном</div>;
+
+    let sequencer = <div>Секвенсер</div>;
+    
     return (
       <div className="drumletters-wrapper">
         <div className="drumletters-title">
           Benny Greb letters for drummers
         </div>
         <BS.Row className="drumletters-main">
-          <BS.Col md={10} className="drumletters-letters-container">
+          <BS.Col md={11} className="drumletters-letters-container">
             <div className="drumletters-letters">
               {lettersElements}
             </div>
           </BS.Col>
-          <BS.Col md={2} className="drumletters-selectors">
+          <BS.Col md={1} className="drumletters-selectors-container">
             {selectorElements}
           </BS.Col>
         </BS.Row>
         <BS.Row className="drumletters-footer">
           <BS.Col md={7} className="drumletters-metro">
-            Метроном
+            {metro}
           </BS.Col>
           <BS.Col md={5} className="drumletters-sequencer">
-            Секвенсер
+            {sequencer}
           </BS.Col>
         </BS.Row>
       </div>
