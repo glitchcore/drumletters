@@ -255,7 +255,10 @@ class Timer extends React.Component {
         Store.FlashTimeout*1000
       );
 
-      let timer = setTimeout(::this.handleMetroTick, (60/this.props.tempo)*1000);
+      let timer = setTimeout(
+        ::this.handleMetroTick,
+        (60/this.props.tempo)*1000*(4/this.props.beats)
+      );
       this.setState({timer});
     }
   }
@@ -267,7 +270,10 @@ class Timer extends React.Component {
     }
     if(this.props.isPlaying) {
       ::this.handleMetroTick();
-      let timer = setTimeout(::this.handleMetroTick, (60/this.props.tempo)*1000);
+      let timer = setTimeout(
+        ::this.handleMetroTick,
+        (60/this.props.tempo)*1000*(4/this.props.beats)
+      );
       this.setState({timer});
     }
   }
@@ -277,7 +283,10 @@ class Timer extends React.Component {
     if(props.isPlaying) {
       if(!this.state.timer) {
         ::this.handleMetroTick();
-        let timer = setTimeout(::this.handleMetroTick, (60/props.tempo)*1000);
+        let timer = setTimeout(
+          ::this.handleMetroTick,
+          (60/props.tempo)*1000*(4/this.props.beats)
+        );
         this.setState({timer});
       }
     } else {
@@ -342,6 +351,7 @@ class Page extends React.Component {
         </BS.Row>
         <Timer
           tempo={this.props.state.tempo}
+          beats={this.props.state.beats}
           isPlaying={this.props.state.isPlaying}
           actions={this.props.actions}
         />

@@ -43,7 +43,8 @@ for(let i = 0; i < QueueSize; i++) {
 
 const initialState = {
   tempo: 96,
-  beats: 4, // 4, 8, 16, "helper"
+  beats: 16, // 4, 8, 16, "helper"
+  _beatsCounter: 4,
   isPlaying: false,
   sequencerSize: 4, // 1..9
   sequencerMode: "direct", // direct, reverse, random
@@ -66,7 +67,7 @@ function pushLetter(state) {
 
       let last = _queue[_queue.length - 1];
       let lastIdx = state.selectedLetters.indexOf(last);
-      
+
       if(lastIdx == -1) {
         log.error("queue unconsistent");
         lastIdx = 0;
@@ -175,6 +176,13 @@ function rootReducer(state = initialState, action) {
       // log.debug("tick", action.payload);
       var newLetter = null;
       if(action.payload) {
+        state._beatsCounter += Math.round(16/state.beats);
+      }
+      if(state._beatsCounter > 3) {
+        state._beatsCounter = 0;
+      }
+
+      if(action.payload && (state._beatsCounter == 0)) {
         return {...state,
           tick: action.payload,
           lettersQueue: pushLetter(state)
