@@ -230,9 +230,14 @@ class LettersQueue extends React.Component {
   render() {
     let letters = this.props.letters;
     let lettersElements = letters.map(
-      (letter, idx) => <BS.Col key={idx} md={Math.floor(ColSize/letters.length)}>
-        <Letter value={letter} active={idx == 1}/>
-      </BS.Col>
+      (letter, idx) => (letter ?
+        <BS.Col key={idx} md={Math.floor(ColSize/letters.length)}>
+          <Letter value={letter} active={idx == 1}/>
+        </BS.Col> : 
+        <BS.Col key={idx} md={Math.floor(ColSize/letters.length)}>
+          {null}
+        </BS.Col>
+      )
     );
 
     return <div>{lettersElements}</div>
@@ -268,7 +273,7 @@ class Timer extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    log.debug("timer update", props.isPlaying);
+    // log.debug("timer update", props.isPlaying, this.state.timer);
     if(props.isPlaying) {
       if(!this.state.timer) {
         ::this.handleMetroTick();
@@ -278,6 +283,7 @@ class Timer extends React.Component {
     } else {
       if(this.state.timer) {
         clearTimeout(this.state.timer);
+        this.setState({timer:null});
       }
     }
   }
@@ -298,7 +304,9 @@ class Page extends React.Component {
           <BS.Col md={11} className="drumletters-letters-container">
             <div className="drumletters-letters">
               <LettersQueue
-                letters={this.props.state.lettersQueue.map(letter => Store.Letters[letter])}
+                letters={this.props.state.lettersQueue.map(
+                  letter => (letter != null ? Store.Letters[letter] : null)
+                )}
               />
             </div>
           </BS.Col>

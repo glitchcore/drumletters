@@ -29,7 +29,7 @@ export const Letters = [
 export const LetterSize = 16;
 export const QueueSize = 4;
 
-export const FlashTimeout = 0.08;
+export const FlashTimeout = 0.05;
 
 var initLetters = [];
 for(let i = 0; i < 4; i++) {
@@ -38,7 +38,7 @@ for(let i = 0; i < 4; i++) {
 
 var initQueue = [];
 for(let i = 0; i < QueueSize; i++) {
-  initQueue.push(i);
+  initQueue.push(null);
 }
 
 const initialState = {
@@ -51,6 +51,18 @@ const initialState = {
   lettersQueue: initQueue,
   tick: false
 };
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * (max));
+}
+
+function pushLetter(array, letter) {
+  let _array = array.slice();
+  _array.splice(0,1);
+  _array.push(letter);
+  log.debug(_array);
+  return _array;
+}
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
@@ -98,6 +110,7 @@ function rootReducer(state = initialState, action) {
           _selectedLetters.splice(idxOfIdx, 1);
         }
       }
+      _selectedLetters.sort((a,b) => (a-b));
 
       log.info("new letters:", _selectedLetters);
 
@@ -109,7 +122,8 @@ function rootReducer(state = initialState, action) {
       if(state.isPlaying) {
         log.info("paused");
         return {...state,
-          isPlaying: false
+          isPlaying: false,
+          tick: false
         };
       } else {
         log.info("started");
@@ -121,8 +135,25 @@ function rootReducer(state = initialState, action) {
     
     case actionsType.SET_TICK:
       // log.debug("tick", action.payload);
+      var newLetter = null;
+      switch(state.sequencerMode) {
+        case "direct":
+          newLetter = 0;
+        break;
+        case "random":
+          newLetter = state.selectedLetters[
+            getRandomInt(state.selectedLetters.length)
+          ];
+        break;
+
+        default:
+          newLetter = 0;
+      }
+      
+
       return {...state,
         tick: action.payload,
+        lettersQueue: action.payload ? pushLetter(state.lettersQueue, newLetter) : state.lettersQueue
       };
       
     default:
