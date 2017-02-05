@@ -240,11 +240,54 @@ class LettersQueue extends React.Component {
 
 }
 
-class Page extends React.Component {
-  changeHandler() {
-    log.debug("changeHandler");
+class Timer extends React.Component {
+  handleMetroTick() {
+    log.debug("metro tick, interval:", this.props.tempo);
+    if(this.props.isPlaying) {
+      this.props.actions.setTick(true);
+      setTimeout(
+        () => {::this.props.actions.setTick(false)},
+        Store.FlashTimeout*1000
+      );
+
+      let timer = setTimeout(::this.handleMetroTick, (60/this.props.tempo)*1000);
+      this.setState({timer});
+    }
   }
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      timer: null
+    }
+    if(this.props.isPlaying) {
+      ::this.handleMetroTick();
+      let timer = setTimeout(::this.handleMetroTick, (60/this.props.tempo)*1000);
+      this.setState({timer});
+    }
+  }
+
+  componentWillReceiveProps(props) {
+    log.debug("timer update", props.isPlaying);
+    if(props.isPlaying) {
+      if(!this.state.timer) {
+        ::this.handleMetroTick();
+        let timer = setTimeout(::this.handleMetroTick, (60/props.tempo)*1000);
+        this.setState({timer});
+      }
+    } else {
+      if(this.state.timer) {
+        clearTimeout(this.state.timer);
+      }
+    }
+  }
+
+  render() {
+    return null;
+  }
+}
+
+class Page extends React.Component {
   render() {
     return (
       <div className="drumletters-wrapper">
@@ -271,8 +314,12 @@ class Page extends React.Component {
             <MetroBeats value={this.props.state.beats} actions={this.props.actions}/>
           </BS.Col>
           <BS.Col md={2} className="drumletters-metro">
-            <div className="drumletters-play">
-              <BS.Glyphicon glyph="play-circle"/>
+            <div
+              className={"drumletters-play drumletters-play-" + (this.props.state.tick ? "tick" : "idle")}>
+              <BS.Glyphicon
+                onClick={::this.props.actions.playPause}
+                glyph={this.props.state.isPlaying ? "stop" : "play-circle"}
+              />
             </div>
           </BS.Col>
           <BS.Col mdOffset={1} md={2} className="drumletters-sequencer-size">
@@ -285,6 +332,11 @@ class Page extends React.Component {
             <SequencerMode value={this.props.state.sequencerMode} actions={this.props.actions}/>
           </BS.Col>
         </BS.Row>
+        <Timer
+          tempo={this.props.state.tempo}
+          isPlaying={this.props.state.isPlaying}
+          actions={this.props.actions}
+        />
       </div>
     )
   }
@@ -315,7 +367,7 @@ export default class App extends React.Component {
           <Route path="/" component={
             connect(state2Page, dispatch2Props)(Page)
           }>
-            
+          
           </Route>
         </Router>
       </Provider>

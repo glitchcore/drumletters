@@ -38,3 +38,17 @@ export function selectLetter(idx, value) {
     payload: {idx, value}
   }
 }
+
+export function playPause() {
+  return {
+    type: actionsType.PLAY_PAUSE,
+    payload: null
+  }
+}
+
+export function setTick(value) {
+  return {
+    type: actionsType.SET_TICK,
+    payload: value
+  }
+}

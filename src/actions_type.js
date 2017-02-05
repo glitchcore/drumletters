@@ -8,5 +8,6 @@ export const SET_BEATS = 'SET_BEATS';
 export const SET_SEQUENCER_SIZE = 'SET_SEQUENCER_SIZE';
 export const SET_SEQUENCER_MODE = 'SET_SEQUENCER_MODE';
 export const SELECT_LETTER = 'SELECT_LETTER';
-
+export const PLAY_PAUSE = 'PLAY_PAUSE';
+export const SET_TICK = 'SET_TICK';
 

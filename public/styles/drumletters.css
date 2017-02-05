@@ -109,7 +109,14 @@ body {
   font-size: 50pt;
   margin-top: -19pt;
   text-align: center;
+}
+
+.drumletters-play-idle {
   color: #F63E62;
+}
+
+.drumletters-play-tick {
+  color: #FFE700;
 }
 
 .drumletters-sequencer-size {

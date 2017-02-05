@@ -27,7 +27,9 @@ export const Letters = [
 ];
 
 export const LetterSize = 16;
-const QueueSize = 4;
+export const QueueSize = 4;
+
+export const FlashTimeout = 0.08;
 
 var initLetters = [];
 for(let i = 0; i < 4; i++) {
@@ -46,7 +48,8 @@ const initialState = {
   sequencerSize: 4, // 1..9
   sequencerMode: "direct", // direct, reverse, random
   selectedLetters: initLetters,
-  lettersQueue: initQueue
+  lettersQueue: initQueue,
+  tick: false
 };
 
 function rootReducer(state = initialState, action) {
@@ -100,6 +103,26 @@ function rootReducer(state = initialState, action) {
 
       return {...state,
         selectedLetters: _selectedLetters
+      };
+
+    case actionsType.PLAY_PAUSE:
+      if(state.isPlaying) {
+        log.info("paused");
+        return {...state,
+          isPlaying: false
+        };
+      } else {
+        log.info("started");
+        return {...state,
+          isPlaying: true
+        };
+      }
+
+    
+    case actionsType.SET_TICK:
+      // log.debug("tick", action.payload);
+      return {...state,
+        tick: action.payload,
       };
       
     default:
