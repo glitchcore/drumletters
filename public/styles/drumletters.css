@@ -36,9 +36,10 @@ body {
 .drumletters-title {
   padding-top: 10px;
   height: 5%;
+  font-weight: bold;
   font-size: 13pt;
   text-align: center;
-  color: #FFED40 ;
+  color: #BFB130;
 }
 .drumletters-footer {
   height: 10%;

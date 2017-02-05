@@ -298,7 +298,7 @@ class Page extends React.Component {
     return (
       <div className="drumletters-wrapper">
         <div className="drumletters-title">
-          Benny Greb letters for drummers
+          Simple metronome and Benny Greb letters for drummers
         </div>
         <BS.Row className="drumletters-main">
           <BS.Col md={11} className="drumletters-letters-container">
