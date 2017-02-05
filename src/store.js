@@ -48,6 +48,7 @@ const initialState = {
   isPlaying: false,
   sequencerSize: 4, // 1..9
   sequencerMode: "direct", // direct, reverse, random
+  _sequencerCounter: 10,
   selectedLetters: initLetters,
   lettersQueue: initQueue,
   tick: false
@@ -61,42 +62,51 @@ function pushLetter(state) {
   var letter = null;
   let _queue = state.lettersQueue.slice();
 
-  switch(state.sequencerMode) {
-    case "direct":
-    case "reverse":
-
-      let last = _queue[_queue.length - 1];
-      let lastIdx = state.selectedLetters.indexOf(last);
-
-      if(lastIdx == -1) {
-        log.error("queue unconsistent");
-        lastIdx = 0;
-      } else if(state.sequencerMode == "direct") {
-        lastIdx += 1;
-        if(lastIdx > (state.selectedLetters.length - 1)) {
-          lastIdx = 0;
-        }
-      } else {
-        lastIdx -= 1;
-        if(lastIdx < 0) {
-          lastIdx = state.selectedLetters.length - 1;
-        }
-      }
-
-      letter = state.selectedLetters[lastIdx];
-
-    break;
-    case "random":
-      letter = state.selectedLetters[
-        getRandomInt(state.selectedLetters.length)
-      ];
-    break;
-
-    default:
-      letter = 0;
+  state._sequencerCounter += 1;
+  if(state._sequencerCounter > (state.sequencerSize - 1)) {
+    state._sequencerCounter = 0;
   }
 
-  
+  if(state._sequencerCounter != 0) {
+    letter = _queue[_queue.length - 1];
+  } else {
+
+    switch(state.sequencerMode) {
+      case "direct":
+      case "reverse":
+
+        let last = _queue[_queue.length - 1];
+        let lastIdx = state.selectedLetters.indexOf(last);
+
+        if(lastIdx == -1) {
+          log.error("queue unconsistent");
+          lastIdx = 0;
+        } else if(state.sequencerMode == "direct") {
+          lastIdx += 1;
+          if(lastIdx > (state.selectedLetters.length - 1)) {
+            lastIdx = 0;
+          }
+        } else {
+          lastIdx -= 1;
+          if(lastIdx < 0) {
+            lastIdx = state.selectedLetters.length - 1;
+          }
+        }
+
+        letter = state.selectedLetters[lastIdx];
+
+      break;
+      case "random":
+        letter = state.selectedLetters[
+          getRandomInt(state.selectedLetters.length)
+        ];
+      break;
+
+      default:
+        letter = 0;
+    }
+  }
+
   _queue.splice(0,1);
   _queue.push(letter);
   log.debug(_queue);
